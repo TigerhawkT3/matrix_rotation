@@ -1,11 +1,11 @@
 def rotate_array(array, angle, wide=False):
     '''
-    Rotates a rectangular 2D array in increments of 45 degrees.
+    Rotates a rectangular or diamond 2D array in increments of 45 degrees.
     Parameters:
         array (list): a list containing sliceable sequences, such as list, tuple, or str
         angle (int): a positive angle for rotation, in 45-degree increments.
         wide (bool): whether a passed diamond array should rotate into a wide array
-            instead of a tall one (tall is the default).
+            instead of a tall one (tall is the default). No effect on square matrices.
     '''
     angle = angle%360
     if angle < 1:
@@ -33,10 +33,10 @@ def rotate_array(array, angle, wide=False):
         array = [[array[r][c] for r,c in zip(range(row-1, -1, -1), range(row))
                  ] for row in range(1, m+1)
            ] + [[array[r][c] for r,c in zip(range(m-1+row*tall, row*tall-1, -1),
-                                                                       range(row*(not tall), m+row*(not tall)+1))
+                                            range(row*(not tall), m+row*(not tall)+1))
                 ] for row in range(1, ab+(not tall))
            ] + [[array[r][c] for r,c in zip(range(len(array)-1, ab*tall+row-1, -1),
-                                                                       range(ab*(not tall)+row, len(array[0])+(not tall)))
+                                            range(ab*(not tall)+row, len(array[0])+(not tall)))
                 ] for row in range((not tall), m)
            ]
     return array

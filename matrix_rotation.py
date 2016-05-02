@@ -38,10 +38,12 @@ array[len-1][len[0]-1]
        [6]'''
 def right_45(array):
     ab = abs(len(array)-len(array[0]))
-    return [[array[r][c] for r,c in zip(range(row-1, -1, -1), range(row))] for row in range(1, len(array)+1)
-    ] + [[array[r][c] for r,c in zip(range(len(array)-1, -1, -1), range(row, len(array)+row+1))
-         ] for row in range(1, ab+1)
-    ] + [[array[r][c] for r,c in zip(range(len(array)-1, row-1, -1), range(ab+row, len(array[0])+1))
-         ] for row in range(1, len(array))
+    m = min(len(array), len(array[0]))
+    head = [[array[r][c] for r,c in zip(range(row-1, -1, -1), range(row))] for row in range(1, m+1)]
+    wide_or_square = len(array) <= len(array[0])
+    tall = not wide_or_square
+    return head + [[array[r][c] for r,c in zip(range(m-1+row*tall, row*tall-1, -1), range(row*wide_or_square, m+row*wide_or_square+1))
+         ] for row in range(1, ab+wide_or_square)
+    ] + [[array[r][c] for r,c in zip(range(len(array)-1, ab*tall+row-1, -1), range(ab*wide_or_square+row, len(array[0])+wide_or_square))
+         ] for row in range(wide_or_square, m)
     ]
-    
